@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "navtive app",
+    "name": "native app",
     "slug": "native-app",
     "privacy": "public",
     "sdkVersion": "35.0.0",
@@ -11,11 +11,11 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/assets/images/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#00a8f3"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

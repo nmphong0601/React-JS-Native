@@ -1,8 +1,19 @@
 import * as React from 'react';
-import { Image, StyleSheet, View, TextInput, Animated, Dimensions, UIManager, Keyboard } from "react-native";
+import { Image, 
+  TouchableOpacity, 
+  StyleSheet, 
+  View, 
+  Text, 
+  TextInput, 
+  Animated, 
+  Dimensions, 
+  UIManager, 
+  Keyboard, 
+  Linking } from "react-native";
 import Button from '../components/Button';
 import FormTextInput from '../components/FormTextInput';
 import { Images, Strings, Colors } from '../utils';
+import ImageLink from "../components/ImageLink";
 
 interface State {
     userName: string;
@@ -77,6 +88,13 @@ class LoginScreen extends React.Component<{}, State> {
     this.keyboardDidHideSub.remove();
   }
 
+  handleFocusNextInputSubmit = (nextField: string) => {
+    const formInput = this.refs[nextField] as FormTextInput;
+    const textInput = formInput.refs["TextInput"] as TextInput;
+
+    textInput.focus();
+  };
+
   render() {
     const { shift } = this.state;
     return (
@@ -86,16 +104,25 @@ class LoginScreen extends React.Component<{}, State> {
         <Image source={Images.logo} style={styles.logo} />
         <View style={styles.form}>
           <FormTextInput
+            blurOnSubmit={false}
+            onSubmitEditing={this.handleFocusNextInputSubmit.bind(
+              this,
+              "password"
+            )}
             value={this.state.userName}
             onChangeText={this.handleUserNameChange}
             placeholder={Strings.user.USERNAME_PLACEHOLDER}
           />
           <FormTextInput
+            ref="password"
+            secureTextEntry={true}
             value={this.state.password}
             onChangeText={this.handlePasswordChange}
             placeholder={Strings.user.PASSWORD_PLACEHOLDER}
           />
           <Button label={Strings.user.LOGIN} onPress={this.handleLoginPress} />
+          <Text style={styles.text}>hoặc đăng nhập với</Text>
+          <ImageLink src={Images.gmail_icon} linkTo={"https://google.com"} />
         </View>
       </Animated.View>
     );
@@ -103,23 +130,29 @@ class LoginScreen extends React.Component<{}, State> {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: Colors.white,
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    logo: {
-        flex: 1,
-        width: '100%',
-        resizeMode: 'contain',
-        alignSelf: 'center'
-    },
-    form: {
-        flex: 1,
-        justifyContent: 'center',
-        width: '80%'
-    }
+  container: {
+    flex: 1,
+    backgroundColor: Colors.fireBrick,
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  logo: {
+    flex: 1,
+    backgroundColor: Colors.white,
+    width: "100%",
+    resizeMode: "contain",
+    alignSelf: "center"
+  },
+  form: {
+    flex: 1,
+    justifyContent: "center",
+    width: "80%"
+  },
+  text: {
+    color: Colors.white,
+    alignSelf: "center",
+    textTransform: "uppercase"
+  }
 });
 
 export default LoginScreen;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, TextInput, TextInputProps } from 'react-native';
+import { StyleSheet, TextInput, TextInputProps, TextInputState } from 'react-native';
 import { Colors } from '../utils';
 
 // We support all the TextInput props
@@ -15,6 +15,7 @@ class FormTextInput extends React.Component<Props> {
 
     return (
       <TextInput
+        ref="TextInput"
         selectionColor={Colors.dodgerBlue}
         // Add the externally specified style to our own custom style
         style={[styles.textInput, style]}
@@ -28,6 +29,7 @@ class FormTextInput extends React.Component<Props> {
 
 const styles = StyleSheet.create({
     textInput: {
+        color: Colors.white,
         height: 40,
         borderColor: Colors.silver,
         borderBottomWidth: StyleSheet.hairlineWidth,

@@ -12,11 +12,11 @@ const strings = {
     }
   },
   user: {
-    LOGIN: "Log In",
+    LOGIN: "Đăng nhập",
     WELCOME_TO_LOGIN: "Welcome to the login screen!",
     EMAIL_PLACEHOLDER: "Email",
-    USERNAME_PLACEHOLDER: "User name",
-    PASSWORD_PLACEHOLDER: "Password"
+    USERNAME_PLACEHOLDER: "Tên đăng nhập",
+    PASSWORD_PLACEHOLDER: "Mật khẩu"
   }
 };
 

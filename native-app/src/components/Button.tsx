@@ -22,22 +22,24 @@ class Button extends React.Component<Props> {
 
 
 const styles = StyleSheet.create({
-    container: {
-        width: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: Colors.fireBrick,
-        marginBottom: 12,
-        paddingVertical: 12,
-        borderRadius: 4,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: "rgba(255,255,255, 0.7)"
-    },
-    text: {
-        color: Colors.white,
-        textAlign: "center",
-        height: 20
-    }
+  container: {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    // backgroundColor: Colors.fireBrick,
+    backgroundColor: Colors.white,
+    marginBottom: 12,
+    paddingVertical: 12,
+    borderRadius: 4,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: "rgba(255,255,255, 0.7)"
+  },
+  text: {
+    // color: Colors.white,
+    color: Colors.fireBrick,
+    textAlign: "center",
+    height: 20
+  }
 });
 
 export default Button;
