@@ -14,7 +14,7 @@ const Register = React.lazy(() => import('./views/Pages/Register'));
 const Page404 = React.lazy(() => import('./views/Pages/Page404'));
 const Page500 = React.lazy(() => import('./views/Pages/Page500'));
 
-const Login = React.lazy(() => import('./views/Pages/CIS/Login'));
+const Login = React.lazy(() => import('./views/Pages/CISLogin/CISLogin'));
 
 class App extends Component {
 
