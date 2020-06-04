@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Redirect } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -16,13 +17,17 @@ import {
   Label
 } from "reactstrap";
 // import NguoiDungActions from '../../../actions/nguoiDungActions';
-import NguoiDungAction from '../../../actions/actions';
-//import { Test } from './EoLogin.styles';
+import Actions from '../../../actions/actions';
+import NguoiDungStore from '../../../stores/NguoiDung/NguoiDungStore';
+import { StyleCardBody } from './EOLogin.styles';
 
 class EOLogin extends PureComponent { 
   constructor(props) {
     super(props);
+
     this.login = this.login.bind(this);
+    this.onChange = this.onChange.bind(this);
+
     this.state = {
       username: "",
       password: "",
@@ -31,37 +36,39 @@ class EOLogin extends PureComponent {
     };
   }
 
+  onChange() {
+    this.setState({
+      userInfor: NguoiDungStore.getNguoiDung()
+    });
+
+    if(this.state.userInfor != null){
+      return <Redirect to="/login" />;
+    }
+  }
+
+  handleUserNameChange = event => {
+    this.setState({ username: event.target.value });
+  };
+  handlePasswordChange = event => {
+    this.setState({ password: event.target.value });
+  };
+
   login = () => {
+    debugger;
     let loginData = {
       username: this.state.username,
       password: this.state.password,
       loaiTaiKhoan: "chuyenvien"
 	  };
-    NguoiDungAction.login(loginData);
+    Actions.NguoiDungAction.login(loginData);
   }
 
   componentWillMount = () => {
-    console.log('EoLogin will mount');
-  }
-
-  componentDidMount = () => {
-    console.log('EoLogin mounted');
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    console.log('EoLogin will receive props', nextProps);
-  }
-
-  componentWillUpdate = (nextProps, nextState) => {
-    console.log('EoLogin will update', nextProps, nextState);
-  }
-
-  componentDidUpdate = () => {
-    console.log('EoLogin did update');
+    NguoiDungStore.addChangeListener(this.onChange);
   }
 
   componentWillUnmount = () => {
-    console.log('EoLogin will unmount');
+    NguoiDungStore.removeChangeListener(this.onChange);
   }
 
   render () {
@@ -78,12 +85,12 @@ class EOLogin extends PureComponent {
                   className="text-white bg-info py-5 d-md-down-none"
                   style={{ width: "44%" }}
                 >
-                  <CardBody className="text-center flex-box-center">
+                  <StyleCardBody className="text-center flex-box-center">
                     <Media
                       src={process.env.PUBLIC_URL + "/assets/img/logo/logo.png"}
                       style={{ width: "100%" }}
                     ></Media>
-                  </CardBody>
+                  </StyleCardBody>
                 </Card>
                 <Card className="bg-white p-4">
                   <CardBody>

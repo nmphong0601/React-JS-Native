@@ -1,7 +1,8 @@
 import Constants from './constants';
 import AppDispatcher from '../dispatcher/dispatcher';
+import NguoiDungApi from '../stores/NguoiDung/NguoiDungApi';
 
-class Actions {
+class GeneralActions {
     findAllItem = items => {
         AppDispatcher.handleViewAction({
             actionType: Constants.FIND_ALL_ITEM,
@@ -58,18 +59,23 @@ class Actions {
     };
 };
 
-class NguoiDungActions extends Actions {
+class NguoiDungActions extends GeneralActions {
     login = loginData => {
-        AppDispatcher.handleViewAction({
-            actionType: "LOGIN",
-            loginData: loginData
-        })
+        debugger;
+        NguoiDungApi.login(loginData).then(result => {
+            if(result.status === "success"){
+                AppDispatcher.handleViewAction({
+                    actionType: "LOGIN",
+                    userInfor: result.data
+                })
+            }
+        });
     };
 };
 
-//export default new Actions();
+class Actions {
+    GeneralAction = new GeneralActions();
+    NguoiDungAction = new NguoiDungActions();
+}
 
-var Action = new Actions();
-var NguoiDungAction = new NguoiDungActions();
-
-export default { Action, NguoiDungAction }
+export default new Actions();

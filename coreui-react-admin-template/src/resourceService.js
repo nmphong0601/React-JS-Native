@@ -3,9 +3,9 @@ import Configuration from './configService';
 import axios from "axios";
 
 class ResourceService { // Cài đặt method chung cho tất cả các API getAll/getSingle/Insert/Update/Delete
-    constructor(endPoint) {
+    constructor(endPointString) {
         this.config = Configuration;
-        this.endpoint = endPoint;
+        this.endpoint = endPointString;
         this.serviceUrl = this.config.API_URL + this.endpoint + '/';
     }
     async getAll() {
@@ -91,4 +91,4 @@ class ResourceService { // Cài đặt method chung cho tất cả các API getA
         console.log(error.message);
     }
 }
-export default ResourceService;
+export default new ResourceService();

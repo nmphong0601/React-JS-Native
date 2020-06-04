@@ -5,6 +5,7 @@ import NguoiDungApi from './NguoiDungApi';
 
 const CHANGE_EVENT = 'CHANGE';
 let _nguoiDungs = [];
+let _nguoiDung = {};
 
 class NguoiDungsStore extends EventEmitter {
   constructor() {
@@ -12,17 +13,18 @@ class NguoiDungsStore extends EventEmitter {
     AppDispatcher.register(this.registerActions.bind(this));
   }
   registerActions(action) {
+    debugger;
     switch(action.actionType) {
       case "LOGIN":
-        NguoiDungApi.login(action.loginData);
+        this.setNguoiDung(action.userInfor);
         this.emit(CHANGE_EVENT);
         break;
       case Constants.FIND_ALL_ITEM:
-        NguoiDungApi.getAll();
+        this.getNguoiDungs();
         this.emit(CHANGE_EVENT);
         break;
       case Constants.FIND_SINGLE_ITEM:
-        NguoiDungApi.getSingle();
+        NguoiDungApi.getNguoiDung();
         this.emit(CHANGE_EVENT);
         break;
       case Constants.ADD_ITEM:
@@ -30,25 +32,31 @@ class NguoiDungsStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
         break;
       case Constants.SHOW_ALL_ITEM:
-        this.setNguoiDungResults(action.items);
+        this.setNguoiDungs(action.items);
         this.emit(CHANGE_EVENT);
         break;
       case Constants.SHOW_SINGLE_ITEM:
-        this.setNguoiDungResults(action.item.id);
+        this.setNguoiDung(action.item);
         this.emit(CHANGE_EVENT);
         break;
     }
     return true;
   }
-  setNguoiDungResults(nguoidungs) {
+
+  setNguoiDungs(nguoidungs) {
     _nguoiDungs = nguoidungs;
   }
-  getNguoiDungResults(nguoidungs) {
+  getNguoiDungs() {
     return _nguoiDungs;
   }
-  getNguoiDungSingleResult(id) {
-    return _nguoiDungs[id];
+
+  setNguoiDung(nguoidung) {
+    _nguoiDung = nguoidung;
   }
+  getNguoiDung() {
+    return _nguoiDung;
+  }
+
   addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   }

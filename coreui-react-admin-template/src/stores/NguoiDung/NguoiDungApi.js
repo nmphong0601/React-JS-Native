@@ -5,7 +5,7 @@ import axios from "axios";
 
 class NguoiDungApi extends ResourceService {
     constructor(){
-        super("api/v1/NguoiDungs");
+        super("api/v1/nguoidungs");
     }
 
     login = (loginData) => {
