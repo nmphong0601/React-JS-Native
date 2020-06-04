@@ -1,6 +1,7 @@
 import Constants from './constants';
 import AppDispatcher from '../dispatcher/dispatcher';
 import NguoiDungApi from '../stores/NguoiDung/NguoiDungApi';
+import Cookies from 'universal-cookie';
 
 class GeneralActions {
     findAllItem = items => {
@@ -63,10 +64,51 @@ class NguoiDungActions extends GeneralActions {
     login = loginData => {
         debugger;
         NguoiDungApi.login(loginData).then(result => {
-            if(result.status === "success"){
-                AppDispatcher.handleViewAction({
+            if(result !== undefined) {
+                let authData = {};
+
+                if (loginData.useRefreshTokens) {
+                    authData = { 
+                        token: result.access_token, 
+                        userEmail: result.userEmail, 
+                        userName: result.userName, 
+                        userId: result.userId, 
+                        refreshToken: result.refresh_token, 
+                        useRefreshTokens: true, 
+                        loaiTaiKhoan: result.loaiTaiKhoan, 
+                        roleName: result.roleName, 
+                        donViId: parseInt(result.donViId), 
+                        phongBanId: parseInt(result.phongBanId), 
+                        fileSize: parseInt(result.fileSize) 
+                    }
+
+                    localStorage.setItem('authorizationData', authData);
+                }
+                else {
+                    authData = { 
+                        token: result.access_token, 
+                        userEmail: result.userEmail, 
+                        userName: result.userName, 
+                        userId: result.userId, 
+                        refreshToken: "", 
+                        useRefreshTokens: false, 
+                        loaiTaiKhoan: result.loaiTaiKhoan, 
+                        roleName: result.roleName, 
+                        donViId: parseInt(result.donViId), 
+                        phongBanId: parseInt(result.phongBanId), 
+                        fileSize: parseInt(result.fileSize) 
+                    }
+
+                    localStorage.setItem('authorizationData', JSON.stringify(authData));
+                }
+
+                const cookies = new Cookies();
+                cookies.set('BearerToken', result.access_token, { path: '/' });
+                cookies.set('SessionId', result.sessionId, { path: '/' });
+
+                AppDispatcher.dispatch({
                     actionType: "LOGIN",
-                    userInfor: result.data
+                    userInfor: authData
                 })
             }
         });

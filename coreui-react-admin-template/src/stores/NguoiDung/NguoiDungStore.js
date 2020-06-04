@@ -39,6 +39,8 @@ class NguoiDungsStore extends EventEmitter {
         this.setNguoiDung(action.item);
         this.emit(CHANGE_EVENT);
         break;
+      default:
+        break;
     }
     return true;
   }

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -37,12 +37,13 @@ class EOLogin extends PureComponent {
   }
 
   onChange() {
+    debugger;
     this.setState({
       userInfor: NguoiDungStore.getNguoiDung()
     });
 
     if(this.state.userInfor != null){
-      return <Redirect to="/login" />;
+      this.props.history.push("/help");
     }
   }
 
