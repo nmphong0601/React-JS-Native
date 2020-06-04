@@ -1,4 +1,4 @@
-export default {
+export default { //Setup menu ở đây
   items: [
     {
       name: 'Dashboard',

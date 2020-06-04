@@ -1,4 +1,5 @@
 class Configuration {
-  API_URL = "http://localhost:4000/api/";
+  API_URL = "http://pnt-nguoidungapi.azurewebsites.net/"; // Setup API ở đây
+  Client_Id = "NDApp";
 }
-export default Configuration;
+export default new Configuration();

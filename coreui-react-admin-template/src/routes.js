@@ -1,5 +1,6 @@
 import React from 'react';
-
+// Khai báo router cho tất cả các page ở đây
+// Khai báo component:
 const Breadcrumbs = React.lazy(() => import('./views/Base/Breadcrumbs'));
 const Cards = React.lazy(() => import('./views/Base/Cards'));
 const Carousels = React.lazy(() => import('./views/Base/Carousels'));
@@ -38,6 +39,7 @@ const User = React.lazy(() => import('./views/Users/User'));
 const CISUsers = React.lazy(() => import("./views/CISUsers/Users"));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
+// Cài đặt route cho từng component:
 const routes = [
   { path: '/help', exact: true, name: 'Help' },
   { path: '/help/dashboard', name: 'Dashboard', component: Dashboard },
