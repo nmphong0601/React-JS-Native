@@ -13,19 +13,31 @@ class ResourceService { // Cài đặt method chung cho tất cả các API getA
           if (response.statusText !== "OK") {
             this.handleResponseError(response);
           }
-          return response.data;
-        })
-        .then(json => {
-          console.log(json);
-          const items = [];
-          const itemArray = json;
-          for (var i = 0; i < itemArray.length; i++) {
-            items.push(itemArray[i]);
-          }
-          return items;
-        })
-        .catch(error => {
+          return response.json();
+        }).catch(error => {
           this.handleError(error);
+          return error;
+        });
+    }
+    async paged(pagingInfor) {
+
+      const parameters = {
+          expand: pagingInfor.expand,
+          filter: pagingInfor.filter,
+          search: pagingInfor.search,
+          sort: pagingInfor.sort,
+          page: pagingInfor.page,
+          pageSize: pagingInfor.pageSize
+      };
+
+      return axios.get(this.serviceUrl, {params: parameters}).then(response => {
+          if (response.statusText !== "OK") {
+            this.handleResponseError(response);
+          }
+          return response.json();
+        }).catch(error => {
+          this.handleError(error);
+          return error;
         });
     }
     async getSingle(id) {
@@ -33,13 +45,10 @@ class ResourceService { // Cài đặt method chung cho tất cả các API getA
           if (response.statusText !== "OK") {
             this.handleResponseError(response);
           }
-          return response.data;
-        })
-        .then(item => {
-          return item;
-        })
-        .catch(error => {
+          return response.json;
+        }).catch(error => {
           this.handleError(error);
+          return error;
         });
     }
     async create(newObj) {
@@ -47,10 +56,10 @@ class ResourceService { // Cài đặt method chung cho tất cả các API getA
           if (response.statusText !== "OK") {
             this.handleResponseError(response);
           }
-          return response.data;
-        })
-        .catch(error => {
+          return response.json();
+        }).catch(error => {
           this.handleError(error);
+          return error;
         });
     }
     async delete(id) {
@@ -58,10 +67,10 @@ class ResourceService { // Cài đặt method chung cho tất cả các API getA
           if (response.statusText !== "OK") {
             this.handleResponseError(response);
           }
-          return response.data;
-        })
-        .catch(error => {
+          return response.json();
+        }).catch(error => {
           this.handleError(error);
+          return error;
         });
     }
     async update(id, obj) {
@@ -69,10 +78,10 @@ class ResourceService { // Cài đặt method chung cho tất cả các API getA
             if (response.statusText !== "OK") {
               this.handleResponseError(response);
             }
-            return response.data;
-          })
-          .catch(error => {
+            return response.json(0);
+          }).catch(error => {
             this.handleError(error);
+            return error;
           });
     }
     handleResponseError(response) {

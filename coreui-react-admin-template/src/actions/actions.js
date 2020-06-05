@@ -1,123 +1,121 @@
 import Constants from './constants';
+import ResourceService from '../resourceService';
 import AppDispatcher from '../dispatcher/dispatcher';
-import NguoiDungApi from '../stores/NguoiDung/NguoiDungApi';
-import Cookies from 'universal-cookie';
 
-class GeneralActions {
-    findAllItem = items => {
-        AppDispatcher.handleViewAction({
-            actionType: Constants.FIND_ALL_ITEM,
-            items: items
-        })
+class Actions {
+    constructor(props) {
+        debugger;
+        this.GeneralApi = new ResourceService({endPoint: props.endPoint});
+        console.log(this.GeneralApi);
+    }
+
+    findAllItem = () => {
+        debugger;
+        this.GeneralApi.getAll().then(result => {
+            if(result.toString().includes('Error')){
+                console.log(result.Error);
+            }
+            else{
+                AppDispatcher.dispatch({
+                    actionType: Constants.FIND_ALL_ITEM,
+                    items: result
+                });
+            }
+            
+        });
     };
-    findSingleItem = item => {
-        AppDispatcher.handleViewAction({
-            actionType: Constants.FIND_SINGLE_ITEM,
-            item: item
-        })
+    pagedItems = pagingInfor => {
+        this.GeneralApi.paged(pagingInfor).then(result => {
+            if(result.toString().includes('Error')){
+                console.log(result.Error);
+            }
+            else{
+                AppDispatcher.dispatch({
+                    actionType: Constants.PAGED_ITEM,
+                    items: result
+                });
+            }
+        });
+    }
+    findSingleItem = id => {
+        this.GeneralApi.getSingle(id).then(result => {
+            if(result.toString().includes('Error')){
+                console.log(result.Error);
+            }
+            else{
+                AppDispatcher.dispatch({
+                    actionType: Constants.FIND_SINGLE_ITEM,
+                    item: result
+                })
+            }
+        });
     };
     showAllItem = items => {
-        AppDispatcher.handleViewAction({
+        AppDispatcher.dispatch({
             actionType: Constants.SHOW_ALL_ITEM,
             items: items
         })
     };
     showSingleItem = item => {
-        AppDispatcher.handleViewAction({
+        AppDispatcher.dispatch({
             actionType: Constants.SHOW_SINGLE_ITEM,
             item: item
         })
     };
     addItem = item => {
-        AppDispatcher.handleViewAction({
-            actionType: Constants.ADD_ITEM,
-            item: item
-        })
+        this.GeneralApi.addItem(item).then(result => {
+            if(result.toString().includes('Error')){
+                console.log(result.Error);
+            }
+            else{
+                AppDispatcher.dispatch({
+                    actionType: Constants.ADD_ITEM,
+                    item: item
+                });
+            }
+            
+        });
     };
-    updateItem = item => {
-        AppDispatcher.handleViewAction({
-            actionType: Constants.UPDATE_ITEM,
-            item: item
-        })
+    updateItem = (id, item) => {
+        this.GeneralApi.update(id, item).then(result => {
+            if(result.toString().includes('Error')){
+                console.log(result.Error);
+            }
+            else{
+                AppDispatcher.dispatch({
+                    actionType: Constants.UPDATE_ITEM,
+                    item: item
+                });
+            }
+            
+        });
     };
-    removeItem = index => {
-        AppDispatcher.handleViewAction({
-            actionType: Constants.REMOVE_ITEM,
-            index: index
-        })
+    removeItem = id => {
+        this.GeneralApi.delete(id).then(result => {
+            if(result.toString().includes('Error')){
+                console.log(result.Error);
+            }
+            else{
+                AppDispatcher.dispatch({
+                    actionType: Constants.REMOVE_ITEM,
+                    index: id
+                });
+            }
+            
+        });
     };
     increaseItem = index => {
-        AppDispatcher.handleViewAction({
+        AppDispatcher.dispatch({
             actionType: Constants.INCREASE_ITEM,
             index: index
-        })
+        });
     };
     decreaseItem = index => {
-        AppDispatcher.handleViewAction({
+        AppDispatcher.dispatch({
             actionType: Constants.DECREASE_ITEM,
             index: index
-        })
-    };
-};
-
-class NguoiDungActions extends GeneralActions {
-    login = loginData => {
-        debugger;
-        NguoiDungApi.login(loginData).then(result => {
-            if(result !== undefined) {
-                let authData = {};
-
-                if (loginData.useRefreshTokens) {
-                    authData = { 
-                        token: result.access_token, 
-                        userEmail: result.userEmail, 
-                        userName: result.userName, 
-                        userId: result.userId, 
-                        refreshToken: result.refresh_token, 
-                        useRefreshTokens: true, 
-                        loaiTaiKhoan: result.loaiTaiKhoan, 
-                        roleName: result.roleName, 
-                        donViId: parseInt(result.donViId), 
-                        phongBanId: parseInt(result.phongBanId), 
-                        fileSize: parseInt(result.fileSize) 
-                    }
-
-                    localStorage.setItem('authorizationData', authData);
-                }
-                else {
-                    authData = { 
-                        token: result.access_token, 
-                        userEmail: result.userEmail, 
-                        userName: result.userName, 
-                        userId: result.userId, 
-                        refreshToken: "", 
-                        useRefreshTokens: false, 
-                        loaiTaiKhoan: result.loaiTaiKhoan, 
-                        roleName: result.roleName, 
-                        donViId: parseInt(result.donViId), 
-                        phongBanId: parseInt(result.phongBanId), 
-                        fileSize: parseInt(result.fileSize) 
-                    }
-
-                    localStorage.setItem('authorizationData', JSON.stringify(authData));
-                }
-
-                const cookies = new Cookies();
-                cookies.set('BearerToken', result.access_token, { path: '/' });
-                cookies.set('SessionId', result.sessionId, { path: '/' });
-
-                AppDispatcher.dispatch({
-                    actionType: "LOGIN",
-                    userInfor: authData
-                })
-            }
         });
     };
 };
 
-class Actions {
-    GeneralAction = new GeneralActions();
-    NguoiDungAction = new NguoiDungActions();
-}
-
-export default new Actions();
+export default Actions;

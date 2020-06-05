@@ -1,5 +1,6 @@
 class Constants { // Cài đặt tên các action
     FIND_ALL_ITEM = "FIND_ALL_ITEM";
+    PAGED_ITEM = "PAGED_ITEM";
     FIND_SINGLE_ITEM = "FIND_SINGLE_ITEM";
     ADD_ITEM = "ADD_ITEM";
     UPDATE_ITEM = "UPDATE_ITEM";

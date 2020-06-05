@@ -17,7 +17,7 @@ import {
   Label
 } from "reactstrap";
 // import NguoiDungActions from '../../../actions/nguoiDungActions';
-import Actions from '../../../actions/actions';
+import NguoiDungActions from '../../../actions/NguoiDungActions';
 import NguoiDungStore from '../../../stores/NguoiDung/NguoiDungStore';
 import { StyleCardBody } from './EOLogin.styles';
 
@@ -61,7 +61,7 @@ class EOLogin extends PureComponent {
       password: this.state.password,
       loaiTaiKhoan: "chuyenvien"
 	  };
-    Actions.NguoiDungAction.login(loginData);
+    NguoiDungActions.login(loginData);
   }
 
   componentWillMount = () => {

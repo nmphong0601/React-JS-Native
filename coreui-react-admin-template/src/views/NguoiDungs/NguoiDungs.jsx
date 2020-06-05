@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import NguoiDungAction from '../actions/actions';
-import PropTypes from 'prop-types';
+import PropTypes, { element } from 'prop-types';
+import NguoiDungActions from '../../actions/NguoiDungActions';
 import NguoiDungStore from '../../stores/NguoiDung/NguoiDungStore';
+import { Card } from 'reactstrap';
 //import { Test } from './NguoiDungs.styles';
 
 class NguoiDungs extends PureComponent { 
@@ -13,8 +14,9 @@ class NguoiDungs extends PureComponent {
   }
 
   getNguoiDungState() {
+    debugger;
     return {
-      nguoiDungs: NguoiDungStore.getNguoiDungResults()
+      nguoiDung: NguoiDungStore.getNguoiDung()
     }
   }
 
@@ -23,8 +25,16 @@ class NguoiDungs extends PureComponent {
   }
 
   componentDidMount = () => {
-    let nguoiDungs = [];
-    NguoiDungAction.findAllItem(nguoiDungs);
+    // const pagingInfor = {
+    //   expand: "",
+    //   filter: null,
+    //   search: null,
+    //   sort: "CreatedOn DESC",
+    //   page: 1,
+    //   pageSize: 10
+    // }
+
+    //NguoiDungActions.pagedItems(pagingInfor);
   }
 
   componentWillUnmount = () => {
@@ -36,21 +46,34 @@ class NguoiDungs extends PureComponent {
   }
 
   render () {
-    if(this.state.nguoiDungs.length != 0){
+    let nguoiDung;
+    debugger;
+    if(this.state.nguoiDung != undefined){
+      nguoiDung = this.state.nguoiDung;
       return (
         <div>
           <center>
-            <h1>Contact List</h1>
+            <h1>User infor</h1>
           </center>
-          {this.state.nguoiDungs.map(nguoiDung => (
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">{nguoiDung.TenDayDu}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{nguoiDung.Email}</h6>
-                <p class="card-text">{nguoiDung.SoDT}</p>
-              </div>
+          {/* {this.state.nguoiDung.map(element => (
+            <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">{element.TenDayDu}</h5>
+                  <h6 className="card-subtitle mb-2 text-muted">{element.userEmail}</h6>
+                  <p className="card-text">{element.roleName}</p>
+                </div>
             </div>
-          ))}
+          ))} */}
+          { this.state.nguoiDung &&
+            <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">{nguoiDung.TenDayDu}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">{nguoiDung.userEmail}</h6>
+                    <p className="card-text">{nguoiDung.roleName}</p>
+                  </div>
+            </div>
+          }
+          
         </div>
       );
     }
@@ -58,7 +81,7 @@ class NguoiDungs extends PureComponent {
       return (
         <div>
           <center>
-            <h1>Contact List</h1>
+            <h1>User infor</h1>
           </center>
         </div>
       );

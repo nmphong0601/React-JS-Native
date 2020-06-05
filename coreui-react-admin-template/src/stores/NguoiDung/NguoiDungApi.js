@@ -1,6 +1,5 @@
 import Configuration from '../../configService';
 import ResourceService from '../../resourceService';
-import axios from 'axios';
 import qs from 'qs';
 
 class NguoiDungApi extends ResourceService {
@@ -24,8 +23,7 @@ class NguoiDungApi extends ResourceService {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
           body: qs.stringify(data)
-        })
-          .then(response => {
+        }).then(response => {
             if (!response.ok) {
               this.handleResponseError(response);
             }

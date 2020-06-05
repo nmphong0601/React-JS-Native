@@ -36,6 +36,7 @@ const Typography = React.lazy(() => import('./views/Theme/Typography'));
 const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
+const NguoiDungs = React.lazy(() => import('./views/NguoiDungs/NguoiDungs'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 // Cài đặt route cho từng component:
@@ -80,7 +81,8 @@ const routes = [
   { path: '/help/widgets', name: 'Widgets', component: Widgets },
   { path: '/help/charts', name: 'Charts', component: Charts },
   { path: '/help/users', exact: true,  name: 'Users', component: Users },
-  { path: '/help/users/:id', exact: true, name: 'User Details', component: User }
+  { path: '/help/users/:id', exact: true, name: 'User Details', component: User },
+  { path: '/help/nguoidungs', exact: true,  name: 'Người Dùng', component: NguoiDungs },
 ];
 
 export default routes;

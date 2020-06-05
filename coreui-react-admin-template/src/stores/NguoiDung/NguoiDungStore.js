@@ -1,7 +1,6 @@
 import AppDispatcher from '../../dispatcher/dispatcher';
 import Constants from '../../actions/constants';
 import EventEmitter from 'events';
-import NguoiDungApi from './NguoiDungApi';
 
 const CHANGE_EVENT = 'CHANGE';
 let _nguoiDungs = [];
@@ -20,23 +19,31 @@ class NguoiDungsStore extends EventEmitter {
         this.emit(CHANGE_EVENT);
         break;
       case Constants.FIND_ALL_ITEM:
-        this.getNguoiDungs();
-        this.emit(CHANGE_EVENT);
-        break;
-      case Constants.FIND_SINGLE_ITEM:
-        NguoiDungApi.getNguoiDung();
-        this.emit(CHANGE_EVENT);
-        break;
-      case Constants.ADD_ITEM:
-        NguoiDungApi.create(action.item);
-        this.emit(CHANGE_EVENT);
-        break;
-      case Constants.SHOW_ALL_ITEM:
         this.setNguoiDungs(action.items);
         this.emit(CHANGE_EVENT);
         break;
-      case Constants.SHOW_SINGLE_ITEM:
+      case Constants.FIND_SINGLE_ITEM:
         this.setNguoiDung(action.item);
+        this.emit(CHANGE_EVENT);
+        break;
+      case Constants.ADD_ITEM:
+        this.setNguoiDung(action.item);
+        this.emit(CHANGE_EVENT);
+        break;
+      case Constants.UPDATE_ITEM:
+        this.setNguoiDung(action.item);
+        this.emit(CHANGE_EVENT);
+        break;
+      case Constants.REMOVE_ITEM:
+        this.removeNguoiDung(action.index);
+        this.emit(CHANGE_EVENT);
+        break;
+      case Constants.SHOW_ALL_ITEM:
+        this.getNguoiDungs();
+        this.emit(CHANGE_EVENT);
+        break;
+      case Constants.SHOW_SINGLE_ITEM:
+        this.getNguoiDung();
         this.emit(CHANGE_EVENT);
         break;
       default:
@@ -54,9 +61,23 @@ class NguoiDungsStore extends EventEmitter {
 
   setNguoiDung(nguoidung) {
     _nguoiDung = nguoidung;
+    const idx = _nguoiDungs.find(nd => nd.Id === nguoidung.Id);
+    if(idx !== undefined && idx !== -1){ // Cập nhật item
+      _nguoiDungs[idx] = _nguoiDung;
+    }
+    else{
+      _nguoiDungs.push(_nguoiDung);
+    }
   }
   getNguoiDung() {
     return _nguoiDung;
+  }
+
+  removeNguoiDung(id) {
+    const idx = _nguoiDungs.find(nd => nd.Id === id);
+    if(idx !== -1){ // Xóa item
+      _nguoiDungs.splice(idx, 1);
+    }
   }
 
   addChangeListener(callback) {
