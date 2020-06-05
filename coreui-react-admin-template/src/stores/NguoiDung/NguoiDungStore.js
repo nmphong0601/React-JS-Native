@@ -5,6 +5,7 @@ import EventEmitter from 'events';
 const CHANGE_EVENT = 'CHANGE';
 let _nguoiDungs = [];
 let _nguoiDung = {};
+let _pagingObject = {};
 
 class NguoiDungsStore extends EventEmitter {
   constructor() {
@@ -18,31 +19,38 @@ class NguoiDungsStore extends EventEmitter {
         this.setNguoiDung(action.userInfor);
         this.emit(CHANGE_EVENT);
         break;
-      case Constants.FIND_ALL_ITEM:
+      case "FIND_ALL_ITEM_NguoiDungs":
         this.setNguoiDungs(action.items);
         this.emit(CHANGE_EVENT);
         break;
-      case Constants.FIND_SINGLE_ITEM:
+      case "PAGED_ITEM_NguoiDungs":
+        this.setPagingNguoiDungs(action.pagingObject);
+        this.emit(CHANGE_EVENT);
+        break;
+      case "FIND_SINGLE_ITEM_NguoiDungs":
         this.setNguoiDung(action.item);
         this.emit(CHANGE_EVENT);
         break;
-      case Constants.ADD_ITEM:
+      case "ADD_ITEM_NguoiDungs":
         this.setNguoiDung(action.item);
         this.emit(CHANGE_EVENT);
         break;
-      case Constants.UPDATE_ITEM:
+      case "UPDATE_ITEM_NguoiDungs":
         this.setNguoiDung(action.item);
         this.emit(CHANGE_EVENT);
         break;
-      case Constants.REMOVE_ITEM:
+      case "REMOVE_ITEM_NguoiDungs":
         this.removeNguoiDung(action.index);
         this.emit(CHANGE_EVENT);
         break;
-      case Constants.SHOW_ALL_ITEM:
+      case "SHOW_ALL_ITEM_NguoiDungs":
         this.getNguoiDungs();
         this.emit(CHANGE_EVENT);
         break;
-      case Constants.SHOW_SINGLE_ITEM:
+      case "SHOW_PAGED_ITEM_NguoiDungs":
+        this.getPagingNguoiDungs();
+        this.emit(CHANGE_EVENT);
+      case "SHOW_SINGLE_ITEM_NguoiDungs":
         this.getNguoiDung();
         this.emit(CHANGE_EVENT);
         break;
@@ -55,10 +63,15 @@ class NguoiDungsStore extends EventEmitter {
   setNguoiDungs(nguoidungs) {
     _nguoiDungs = nguoidungs;
   }
+  setPagingNguoiDungs(PagingObject) {
+    _pagingObject = PagingObject;
+  }
   getNguoiDungs() {
     return _nguoiDungs;
   }
-
+  getPagingNguoiDungs() {
+    return _pagingObject;
+  }
   setNguoiDung(nguoidung) {
     _nguoiDung = nguoidung;
     const idx = _nguoiDungs.find(nd => nd.Id === nguoidung.Id);

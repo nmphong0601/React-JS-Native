@@ -4,72 +4,72 @@ import AppDispatcher from '../dispatcher/dispatcher';
 
 class Actions {
     constructor(props) {
-        debugger;
-        this.GeneralApi = new ResourceService({endPoint: props.endPoint});
+        this.service = new ResourceService({endPoint: props.endPoint});
+        this.object = props.objectType;
         console.log(this.GeneralApi);
     }
 
     findAllItem = () => {
         debugger;
-        this.GeneralApi.getAll().then(result => {
-            if(result.toString().includes('Error')){
-                console.log(result.Error);
+        this.service.getAll().then(result => {
+            if(result.statusText != 'OK'){
+                console.log(result.data);
             }
             else{
                 AppDispatcher.dispatch({
-                    actionType: Constants.FIND_ALL_ITEM,
-                    items: result
+                    actionType: Constants.FIND_ALL_ITEM + "_" + this.object,
+                    items: result.data
                 });
             }
             
         });
     };
     pagedItems = pagingInfor => {
-        this.GeneralApi.paged(pagingInfor).then(result => {
-            if(result.toString().includes('Error')){
-                console.log(result.Error);
+        this.service.paged(pagingInfor).then(result => {
+            if(result.statusText != 'OK'){
+                console.log(result.data);
             }
             else{
                 AppDispatcher.dispatch({
-                    actionType: Constants.PAGED_ITEM,
-                    items: result
+                    actionType: Constants.PAGED_ITEM + "_" + this.object,
+                    pagingObject: result.data
                 });
             }
         });
     }
     findSingleItem = id => {
-        this.GeneralApi.getSingle(id).then(result => {
-            if(result.toString().includes('Error')){
-                console.log(result.Error);
+        this.service.getSingle(id).then(result => {
+            if(result.statusText != 'OK'){
+                console.log(result.data);
             }
             else{
                 AppDispatcher.dispatch({
-                    actionType: Constants.FIND_SINGLE_ITEM,
-                    item: result
+                    actionType: Constants.FIND_SINGLE_ITEM + "_" + this.object,
+                    item: result.data
                 })
             }
         });
     };
     showAllItem = items => {
         AppDispatcher.dispatch({
-            actionType: Constants.SHOW_ALL_ITEM,
+            actionType: Constants.SHOW_ALL_ITEM + "_" + this.object,
             items: items
         })
     };
     showSingleItem = item => {
         AppDispatcher.dispatch({
-            actionType: Constants.SHOW_SINGLE_ITEM,
+            actionType: Constants.SHOW_SINGLE_ITEM + "_" + this.object,
             item: item
         })
     };
     addItem = item => {
-        this.GeneralApi.addItem(item).then(result => {
-            if(result.toString().includes('Error')){
-                console.log(result.Error);
+        this.service.addItem(item).then(result => {
+            if(result.statusText != 'OK'){
+                console.log(result.data);
             }
             else{
                 AppDispatcher.dispatch({
-                    actionType: Constants.ADD_ITEM,
+                    actionType: Constants.ADD_ITEM + "_" + this.object,
                     item: item
                 });
             }
@@ -77,13 +77,13 @@ class Actions {
         });
     };
     updateItem = (id, item) => {
-        this.GeneralApi.update(id, item).then(result => {
-            if(result.toString().includes('Error')){
-                console.log(result.Error);
+        this.service.update(id, item).then(result => {
+            if(result.statusText != 'OK'){
+                console.log(result.data);
             }
             else{
                 AppDispatcher.dispatch({
-                    actionType: Constants.UPDATE_ITEM,
+                    actionType: Constants.UPDATE_ITEM + "_" + this.object,
                     item: item
                 });
             }
@@ -91,13 +91,13 @@ class Actions {
         });
     };
     removeItem = id => {
-        this.GeneralApi.delete(id).then(result => {
-            if(result.toString().includes('Error')){
-                console.log(result.Error);
+        this.service.delete(id).then(result => {
+            if(result.statusText != 'OK'){
+                console.log(result.data);
             }
             else{
                 AppDispatcher.dispatch({
-                    actionType: Constants.REMOVE_ITEM,
+                    actionType: Constants.REMOVE_ITEM + "_" + this.object,
                     index: id
                 });
             }
@@ -106,13 +106,13 @@ class Actions {
     };
     increaseItem = index => {
         AppDispatcher.dispatch({
-            actionType: Constants.INCREASE_ITEM,
+            actionType: Constants.INCREASE_ITEM + "_" + this.object,
             index: index
         });
     };
     decreaseItem = index => {
         AppDispatcher.dispatch({
-            actionType: Constants.DECREASE_ITEM,
+            actionType: Constants.DECREASE_ITEM + "_" + this.object,
             index: index
         });
     };

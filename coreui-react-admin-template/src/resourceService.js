@@ -3,17 +3,26 @@ import axios from "axios";
 
 class ResourceService { // Cài đặt method chung cho tất cả các API getAll/getSingle/Insert/Update/Delete
     constructor(props) {
-        debugger;
         this.config = Configuration;
         this.endpoint = props.endPoint;
         this.serviceUrl = this.config.API_URL + this.endpoint + '/';
+
+        // Add a request interceptor
+        axios.interceptors.request.use(function (config) {
+          const authorizationData = JSON.parse(localStorage.getItem('authorizationData'));
+          if(authorizationData){
+            const token = authorizationData.token;
+            config.headers.common['Authorization'] =  'Bearer ' + token;
+          }
+          return config;
+        });
     }
     async getAll() {
       return axios.get(this.serviceUrl).then(response => {
           if (response.statusText !== "OK") {
             this.handleResponseError(response);
           }
-          return response.json();
+          return response;
         }).catch(error => {
           this.handleError(error);
           return error;
@@ -34,7 +43,7 @@ class ResourceService { // Cài đặt method chung cho tất cả các API getA
           if (response.statusText !== "OK") {
             this.handleResponseError(response);
           }
-          return response.json();
+          return response;
         }).catch(error => {
           this.handleError(error);
           return error;
@@ -45,7 +54,7 @@ class ResourceService { // Cài đặt method chung cho tất cả các API getA
           if (response.statusText !== "OK") {
             this.handleResponseError(response);
           }
-          return response.json;
+          return response;
         }).catch(error => {
           this.handleError(error);
           return error;
@@ -56,7 +65,7 @@ class ResourceService { // Cài đặt method chung cho tất cả các API getA
           if (response.statusText !== "OK") {
             this.handleResponseError(response);
           }
-          return response.json();
+          return response;
         }).catch(error => {
           this.handleError(error);
           return error;
@@ -67,7 +76,7 @@ class ResourceService { // Cài đặt method chung cho tất cả các API getA
           if (response.statusText !== "OK") {
             this.handleResponseError(response);
           }
-          return response.json();
+          return response;
         }).catch(error => {
           this.handleError(error);
           return error;
@@ -78,7 +87,7 @@ class ResourceService { // Cài đặt method chung cho tất cả các API getA
             if (response.statusText !== "OK") {
               this.handleResponseError(response);
             }
-            return response.json(0);
+            return response;
           }).catch(error => {
             this.handleError(error);
             return error;

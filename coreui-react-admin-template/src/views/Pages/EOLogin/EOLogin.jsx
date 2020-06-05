@@ -43,7 +43,7 @@ class EOLogin extends PureComponent {
     });
 
     if(this.state.userInfor != null){
-      this.props.history.push("/help");
+      this.props.history.push("/app/quanlynhomquyen");
     }
   }
 
@@ -136,7 +136,7 @@ class EOLogin extends PureComponent {
                             style={{
                               textTransform: "uppercase"
                             }}
-                            onClick={this.login.bind(this)}
+                            onClick={this.login}
                           >
                             Đăng nhập
                           </Button>

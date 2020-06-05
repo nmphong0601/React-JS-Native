@@ -9,7 +9,8 @@ class Constants { // Cài đặt tên các action
     DECREASE_ITEM = "DECREASE_ITEM";
 
     SHOW_ALL_ITEM = "SHOW_ALL_ITEM";
+    SHOW_PAGED_ITEM = "SHOW_PAGED_ITEM";
     SHOW_SINGLE_ITEM = "SHOW_SINGLE_ITEM";
 };
 
-export default Constants;
+export default new Constants();

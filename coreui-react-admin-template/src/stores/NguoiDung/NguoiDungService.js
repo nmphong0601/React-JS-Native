@@ -2,7 +2,7 @@ import Configuration from '../../configService';
 import ResourceService from '../../resourceService';
 import qs from 'qs';
 
-class NguoiDungApi extends ResourceService {
+class NguoiDungService extends ResourceService {
     constructor(props){
         super(props);
     }
@@ -87,4 +87,4 @@ class NguoiDungApi extends ResourceService {
     }
 }
 
-export default new NguoiDungApi({endPoint: 'api/v1/nguoidungs'});
+export default new NguoiDungService({endPoint: 'api/v1/nguoidungs'});

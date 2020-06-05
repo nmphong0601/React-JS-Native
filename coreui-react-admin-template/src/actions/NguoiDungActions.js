@@ -1,6 +1,6 @@
 import Actions from './actions';
 import AppDispatcher from '../dispatcher/dispatcher';
-import NguoiDungApi from '../stores/NguoiDung/NguoiDungApi';
+import NguoiDungService from '../stores/NguoiDung/NguoiDungService';
 import Cookies from 'universal-cookie';
 
 class NguoiDungActions extends Actions {
@@ -10,7 +10,7 @@ class NguoiDungActions extends Actions {
 
     login = loginData => {
         debugger;
-        NguoiDungApi.login(loginData).then(result => {
+        NguoiDungService.login(loginData).then(result => {
             if(result !== undefined) {
                 let authData = {};
 
@@ -29,7 +29,7 @@ class NguoiDungActions extends Actions {
                         fileSize: parseInt(result.fileSize) 
                     }
 
-                    localStorage.setItem('authorizationData', authData);
+                    localStorage.setItem('authorizationData', JSON.stringify(authData));
                 }
                 else {
                     authData = { 
@@ -62,4 +62,4 @@ class NguoiDungActions extends Actions {
     };
 };
 
-export default new NguoiDungActions({endPoint: 'api/v1/nguoidungs'});
+export default new NguoiDungActions({endPoint: 'api/v1/nguoidungs', objectType: 'NguoiDungs'});

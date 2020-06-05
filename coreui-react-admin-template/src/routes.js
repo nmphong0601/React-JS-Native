@@ -38,6 +38,9 @@ const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
 const NguoiDungs = React.lazy(() => import('./views/NguoiDungs/NguoiDungs'));
 
+const PhanMems = React.lazy(() => import('./views/PhanMems/PhanMems'));
+const NhomQuyens = React.lazy(() => import('./views/NhomQuyens/NhomQuyens'));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 // Cài đặt route cho từng component:
 const routes = [
@@ -83,6 +86,10 @@ const routes = [
   { path: '/help/users', exact: true,  name: 'Users', component: Users },
   { path: '/help/users/:id', exact: true, name: 'User Details', component: User },
   { path: '/help/nguoidungs', exact: true,  name: 'Người Dùng', component: NguoiDungs },
+
+  { path: '/app', exact: true, name: 'App' },
+  { path: '/app/quanlyphanmem', exact: true,  name: 'Quản lý phần mềm', component: PhanMems },
+  { path: '/app/quanlynhomquyen', exact: true,  name: 'Quản lý nhóm quyền', component: NhomQuyens },
 ];
 
 export default routes;

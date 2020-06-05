@@ -8,7 +8,7 @@ import { Card } from 'reactstrap';
 class NguoiDungs extends PureComponent { 
   constructor(props) {
     super(props);
-    this._onChange = this._onChange.bind(this);
+    this._onChange = this._onChange.bind(this); //Phải khai báo nếu không dùng Arrow function
     this.getNguoiDungState = this.getNguoiDungState.bind(this);
     this.state = this.getNguoiDungState();
   }
@@ -16,7 +16,7 @@ class NguoiDungs extends PureComponent {
   getNguoiDungState() {
     debugger;
     return {
-      nguoiDung: NguoiDungStore.getNguoiDung()
+      nguoiDungs: NguoiDungStore.getNguoiDungs()
     }
   }
 
@@ -34,7 +34,7 @@ class NguoiDungs extends PureComponent {
     //   pageSize: 10
     // }
 
-    //NguoiDungActions.pagedItems(pagingInfor);
+    NguoiDungActions.findAllItem();
   }
 
   componentWillUnmount = () => {
@@ -46,16 +46,16 @@ class NguoiDungs extends PureComponent {
   }
 
   render () {
-    let nguoiDung;
+    let nguoiDungs;
     debugger;
-    if(this.state.nguoiDung != undefined){
-      nguoiDung = this.state.nguoiDung;
+    if(this.state.nguoiDungs != undefined){
+      nguoiDungs = this.state.nguoiDungs;
       return (
         <div>
           <center>
             <h1>User infor</h1>
           </center>
-          {/* {this.state.nguoiDung.map(element => (
+          {this.state.nguoiDungs.map(element => (
             <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">{element.TenDayDu}</h5>
@@ -63,17 +63,7 @@ class NguoiDungs extends PureComponent {
                   <p className="card-text">{element.roleName}</p>
                 </div>
             </div>
-          ))} */}
-          { this.state.nguoiDung &&
-            <div className="card">
-                  <div className="card-body">
-                    <h5 className="card-title">{nguoiDung.TenDayDu}</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">{nguoiDung.userEmail}</h6>
-                    <p className="card-text">{nguoiDung.roleName}</p>
-                  </div>
-            </div>
-          }
-          
+          ))}         
         </div>
       );
     }
