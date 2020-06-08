@@ -61,6 +61,7 @@ class PhanMemsStore extends EventEmitter {
   }
   setPagingPhanMems(PagingObject) {
     _pagingObject = PagingObject;
+    _PhanMems = PagingObject['ApiPhanMems']
   }
   getPhanMems() {
     return _PhanMems;
