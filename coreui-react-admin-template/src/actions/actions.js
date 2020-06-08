@@ -91,17 +91,21 @@ class Actions {
         });
     };
     removeItem = id => {
-        this.service.delete(id).then(result => {
-            if(result.statusText != 'OK'){
-                console.log(result.data);
-            }
-            else{
-                AppDispatcher.dispatch({
-                    actionType: Constants.REMOVE_ITEM + "_" + this.object,
-                    index: id
-                });
-            }
+        // this.service.delete(id).then(result => {
+        //     if(result.statusText != 'OK'){
+        //         console.log(result.data);
+        //     }
+        //     else{
+        //         AppDispatcher.dispatch({
+        //             actionType: Constants.REMOVE_ITEM + "_" + this.object,
+        //             index: id
+        //         });
+        //     }
             
+        // });
+        AppDispatcher.dispatch({
+            actionType: Constants.REMOVE_ITEM + "_" + this.object,
+            index: id
         });
     };
     increaseItem = index => {

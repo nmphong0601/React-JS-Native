@@ -60,6 +60,7 @@ class NhomQuyensStore extends EventEmitter {
   }
   setPagingNhomQuyens(PagingObject) {
     _pagingObject = PagingObject;
+    _NhomQuyens = PagingObject['ApiNhomQuyens'];
   }
   getNhomQuyens() {
     return _NhomQuyens;
@@ -82,7 +83,8 @@ class NhomQuyensStore extends EventEmitter {
   }
 
   removeNhomQuyen(id) {
-    const idx = _NhomQuyens.find(nd => nd.Id === id);
+    debugger;
+    const idx = _NhomQuyens.findIndex(nd => nd.Id === id);
     if(idx !== -1){ // Xóa item
       _NhomQuyens.splice(idx, 1);
     }

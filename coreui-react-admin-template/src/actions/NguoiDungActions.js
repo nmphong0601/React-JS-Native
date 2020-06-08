@@ -60,6 +60,12 @@ class NguoiDungActions extends Actions {
             }
         });
     };
+
+    logout = () => {
+        localStorage.removeItem('authorizationData');
+
+        this.props.history.push('/login');
+    }
 };
 
 export default new NguoiDungActions({endPoint: 'api/v1/nguoidungs', objectType: 'NguoiDungs'});

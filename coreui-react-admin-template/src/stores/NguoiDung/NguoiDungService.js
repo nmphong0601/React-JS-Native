@@ -33,57 +33,6 @@ class NguoiDungService extends ResourceService {
           .catch(error => {
             this.handleError(error);
           });
-
-        // return axios.post(Configuration.API_URL + 'token', stringData, {headers})
-        // .then(res => {
-        //     if (res.statusText !== 'OK') {
-        //       this.handleResponseError(res);
-        //     }
-
-        //     if (loginData.useRefreshTokens) {
-        //         const authData = { 
-        //             token: res.data.access_token, 
-        //             userEmail: res.data.userEmail, 
-        //             userName: res.data.userName, 
-        //             userId: res.data.userId, 
-        //             refreshToken: res.data.refresh_token, 
-        //             useRefreshTokens: true, 
-        //             loaiTaiKhoan: res.data.loaiTaiKhoan, 
-        //             roleName: res.data.roleName, 
-        //             donViId: parseInt(res.data.donViId), 
-        //             phongBanId: parseInt(res.data.phongBanId), 
-        //             fileSize: parseInt(res.data.fileSize) 
-        //         }
-
-        //         localStorage.setItem('authorizationData', authData);
-        //     }
-        //     else {
-        //         const authData = { 
-        //             token: res.data.access_token, 
-        //             userEmail: res.data.userEmail, 
-        //             userName: res.data.userName, 
-        //             userId: res.data.userId, 
-        //             refreshToken: "", 
-        //             useRefreshTokens: false, 
-        //             loaiTaiKhoan: res.data.loaiTaiKhoan, 
-        //             roleName: res.data.roleName, 
-        //             donViId: parseInt(res.data.donViId), 
-        //             phongBanId: parseInt(res.data.phongBanId), 
-        //             fileSize: parseInt(res.data.fileSize) 
-        //         }
-
-        //         localStorage.setItem('authorizationData', authData);
-        //     }
-
-        //     const cookies = new Cookies();
-        //     cookies.set('BearerToken', res.data.access_token, { path: '/' });
-        //     cookies.set('SessionId', res.data.sessionId, { path: '/' });
-
-        //     return res.data;
-        //   })
-        //   .catch(error => {
-        //     this.handleError(error);
-        //   });
     }
 }
 

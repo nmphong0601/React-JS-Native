@@ -10,11 +10,12 @@ class ResourceService { // Cài đặt method chung cho tất cả các API getA
         // Add a request interceptor
         axios.interceptors.request.use(function (config) {
           const authorizationData = JSON.parse(localStorage.getItem('authorizationData'));
-          if(authorizationData){
+          if(authorizationData) {
             const token = authorizationData.token;
             config.headers.common['Authorization'] =  'Bearer ' + token;
-          }
-          return config;
+
+            return config;
+          }          
         });
     }
     async getAll() {
