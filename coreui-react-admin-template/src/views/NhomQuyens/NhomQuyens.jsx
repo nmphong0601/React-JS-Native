@@ -4,7 +4,7 @@ import PropTypes, { element } from 'prop-types';
 import NhomQuyenActions from '../../actions/NhomQuyenActions';
 import NhomQuyenStore from '../../stores/NhomQuyen/NhomQuyenStore';
 
-import { Container, Row, Col, Card, CardBody, CardHeader, Button } from 'reactstrap';
+import { Container, Row, Col, Card, CardBody, CardHeader, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import PhanMems from '../PhanMems/PhanMems';
 import { ResponsiveTable, PaginationTable, LoadingSpiner } from '../Base';
 //import { Test } from './NhomQuyens.styles';
@@ -117,6 +117,10 @@ class NhomQuyens extends PureComponent {
     this.setState({pagingInfor: _pagingInfo});
     NhomQuyenActions.pagedItems(this.state.pagingInfor);
   }
+  
+  toggle = () => { 
+    this.setState({ dropdownOpen: !this.state.dropdownOpen });
+  }
 
   render () {
     const loading  = this.state.loading;
@@ -148,9 +152,19 @@ class NhomQuyens extends PureComponent {
                               <Button color="success" size="md">
                                 <i className="fa fa-plus"></i> Thêm
                               </Button>{' '}
-                              <Button color="danger" size="md">
-                                <i className="fa fa-trash"></i> Xóa
-                              </Button>
+                              <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                                <DropdownToggle caret color="danger" size="md">
+                                  Xóa
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                  <DropdownItem>
+                                    <a>Xóa một trang</a>
+                                  </DropdownItem>
+                                  <DropdownItem>
+                                    <a>Xóa tất cả</a>
+                                  </DropdownItem>
+                                </DropdownMenu>
+                              </ButtonDropdown>
                             </div>
                           </Col>
                         </Row>
