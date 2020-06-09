@@ -37,7 +37,7 @@ class ResponsiveTable extends PureComponent {
   }
 
   confirmDelete(props) {
-    this.props.onDelete(props);
+    this.props.onRowDelete(props);
   }
 
   render () {
@@ -78,7 +78,7 @@ class ResponsiveTable extends PureComponent {
                   <a href="javascript:(void);" onClick={this.confirmDelete.bind(this, element)}>
                     <i className="fa text-muted fa-trash-o"> Xóa </i>
                   </a>
-                  <a href="javascript:(void);" onClick={this.props.onEdit.bind(this, element)}>
+                  <a href="javascript:(void);" onClick={this.props.onRowEdit.bind(this, element)}>
                     <i className="fa text-muted fa-edit"> Sửa </i>
                   </a>
                 </td>
