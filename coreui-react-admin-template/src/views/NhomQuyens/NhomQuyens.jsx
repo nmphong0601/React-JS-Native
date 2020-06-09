@@ -121,7 +121,7 @@ class NhomQuyens extends PureComponent {
                 <strong><i className="icon-info pr-1"></i> Quản lý nhóm quyền</strong>
                 <PhanMems type="dropdown" onSelectedChange={this.phanMemChange.bind(this)}/>
           </CardHeader>
-          <ResponsiveTable data={this.state.nhomQuyens} columns={this.state.columnNhomQuyens} onDelete={this.deleteNhomQuyen} onEdit={this.updateNhomQuyen}></ResponsiveTable>
+          <ResponsiveTable data={this.state.nhomQuyens} columns={this.state.columnNhomQuyens} onRowDelete={this.deleteNhomQuyen} onRowEdit={this.updateNhomQuyen}></ResponsiveTable>
           <PaginationTable page={this.state.pagingInfor.page} totalItems={this.state.pagingInfor.totalItems} pageSize={this.state.pagingInfor.pageSize} onPageChange={this.pageChange.bind(this)}/>
         </CardBody>
       </Card>

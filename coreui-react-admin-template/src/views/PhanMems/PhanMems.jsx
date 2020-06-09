@@ -114,7 +114,7 @@ class PhanMems extends PureComponent {
             <CardHeader>
                   <strong><i className="icon-info pr-1"></i> Quản lý phần mềm</strong>
             </CardHeader>
-            <ResponsiveTable data={this.state.phanMems} columns={this.state.columnPhanMems} onDelete={this.deletePhanMem} onEdit={this.updatePhanMem}></ResponsiveTable>
+            <ResponsiveTable data={this.state.phanMems} columns={this.state.columnPhanMems} onRowDelete={this.deletePhanMem} onRowEdit={this.updatePhanMem}></ResponsiveTable>
             <PaginationTable page={this.state.pagingInfor.page} totalItems={this.state.pagingInfor.totalItems} pageSize={this.state.pagingInfor.pageSize} onPageChange={this.pageChange.bind(this)}/>
           </CardBody>
         </Card>
