@@ -98,7 +98,7 @@ class PhanMems extends PureComponent {
         return {value: element.AppId, label: element.Ten}
       });
       return (
-        <Select className="col-md-3" value={this.state.selectedApp} options={danhSachPhanMem} onChange={this.handleChange} placeholder="Chọn phần mềm..."/>
+        <Select value={this.state.selectedApp} options={danhSachPhanMem} onChange={this.handleChange} placeholder="Chọn phần mềm..."/>
         // <select>
         //     <option value="0">Chọn phần mềm</option>
         //   {this.state.phanMems.map((element, index) => (

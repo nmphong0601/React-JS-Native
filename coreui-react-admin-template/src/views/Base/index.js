@@ -17,8 +17,9 @@ import Tabs from './Tabs';
 import Tooltips from './Tooltips';
 import ResponsiveTable from './ResponsiveTable';
 import PaginationTable from './PaginationTable';
+import LoadingSpiner from './LoadingSpiner';
 
 export {
-  Breadcrumbs, Cards, Carousels, Collapses, Dropdowns, Forms, Jumbotrons, ListGroups, Navbars, Navs, Popovers, ProgressBar, Switches, Tables, Tabs, Tooltips, Paginations, ResponsiveTable, PaginationTable
+  Breadcrumbs, Cards, Carousels, Collapses, Dropdowns, Forms, Jumbotrons, ListGroups, Navbars, Navs, Popovers, ProgressBar, Switches, Tables, Tabs, Tooltips, Paginations, ResponsiveTable, PaginationTable, LoadingSpiner
 };
 

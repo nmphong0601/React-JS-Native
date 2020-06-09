@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Suspense } from 'react';
 import PropTypes, { element } from 'prop-types';
 
 import NhomQuyenActions from '../../actions/NhomQuyenActions';
 import NhomQuyenStore from '../../stores/NhomQuyen/NhomQuyenStore';
 
-import { Card, CardBody, CardHeader } from 'reactstrap';
+import { Container, Row, Col, Card, CardBody, CardHeader, Button } from 'reactstrap';
 import PhanMems from '../PhanMems/PhanMems';
-import { ResponsiveTable, PaginationTable } from '../Base';
+import { ResponsiveTable, PaginationTable, LoadingSpiner } from '../Base';
 //import { Test } from './NhomQuyens.styles';
 
 class NhomQuyens extends PureComponent {
@@ -30,6 +30,7 @@ class NhomQuyens extends PureComponent {
         { title: 'Mô tả', field: 'MoTa' }
       ],
       nhomQuyens: [],
+      loading: false,
       hasError: false,
     };
   }
@@ -46,6 +47,10 @@ class NhomQuyens extends PureComponent {
       ],
       nhomQuyens: NhomQuyenStore.getNhomQuyens()
     });
+
+    if(this.state.nhomQuyens.length != 0){
+      this.setState({loading: false});
+    }
   }
 
   componentWillMount = () => {
@@ -57,6 +62,8 @@ class NhomQuyens extends PureComponent {
       _pagingInfo.filter = _pagingInfo.filter + ' and AppId=' + this.state.appId;
 
     this.setState({pagingInfor: _pagingInfo});
+
+    this.setState({loading: true});
     NhomQuyenActions.pagedItems(this.state.pagingInfor);
   }
 
@@ -95,6 +102,7 @@ class NhomQuyens extends PureComponent {
     _pagingInfo.page = pageIndex;
 
     this.setState({pagingInfor: _pagingInfo});
+    this.setState({loading: true});
     NhomQuyenActions.pagedItems(this.state.pagingInfor);
   }
 
@@ -111,20 +119,52 @@ class NhomQuyens extends PureComponent {
   }
 
   render () {
+    const loading  = this.state.loading;
+
     if (this.state.hasError) {
       return <h1>Something went wrong.</h1>;
     }
     return (
-      <Card>
-        <CardBody>
-          <CardHeader>
-                <strong><i className="icon-info pr-1"></i> Quản lý nhóm quyền</strong>
-                <PhanMems type="dropdown" onSelectedChange={this.phanMemChange.bind(this)}/>
-          </CardHeader>
-          <ResponsiveTable data={this.state.nhomQuyens} columns={this.state.columnNhomQuyens} onRowDelete={this.deleteNhomQuyen} onRowEdit={this.updateNhomQuyen}></ResponsiveTable>
-          <PaginationTable page={this.state.pagingInfor.page} totalItems={this.state.pagingInfor.totalItems} pageSize={this.state.pagingInfor.pageSize} onPageChange={this.pageChange.bind(this)}/>
-        </CardBody>
-      </Card>
+      <Container>
+        {
+          loading ? 
+          <Row>
+            <Col md="12">
+              <LoadingSpiner/>
+            </Col>
+          </Row> :
+          <Row>
+            <Col md="12">
+              <Card>
+                <CardBody>
+                  <CardHeader>
+                        <strong><i className="icon-info pr-1"></i> Quản lý nhóm quyền</strong>
+                        <Row>
+                          <Col md="6">
+                            <PhanMems type="dropdown" onSelectedChange={this.phanMemChange.bind(this)}/>
+                          </Col>
+                          <Col md="6">
+                            <div style={{float: 'right'}}>
+                              <Button color="success" size="md">
+                                <i className="fa fa-plus"></i> Thêm
+                              </Button>{' '}
+                              <Button color="danger" size="md">
+                                <i className="fa fa-trash"></i> Xóa
+                              </Button>
+                            </div>
+                          </Col>
+                        </Row>
+                        
+                        
+                  </CardHeader>
+                  <ResponsiveTable data={this.state.nhomQuyens} columns={this.state.columnNhomQuyens} onRowDelete={this.deleteNhomQuyen} onRowEdit={this.updateNhomQuyen}></ResponsiveTable>
+                  <PaginationTable page={this.state.pagingInfor.page} totalItems={this.state.pagingInfor.totalItems} pageSize={this.state.pagingInfor.pageSize} onPageChange={this.pageChange.bind(this)}/>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        }
+      </Container>
     );
   }
 }

@@ -54,8 +54,9 @@ class EOLogin extends PureComponent {
     this.setState({ password: event.target.value });
   };
 
-  login = () => {
+  login = e => {
     debugger;
+    e.preventDefault();
     let loginData = {
       username: this.state.username,
       password: this.state.password,
@@ -95,7 +96,7 @@ class EOLogin extends PureComponent {
                 </Card>
                 <Card className="bg-white p-4">
                   <CardBody>
-                    <Form>
+                    <Form onSubmit={this.login}>
                       <h1>Đăng nhập</h1>
                       <p className="text-white">
                         Truy cập vào tài khoản của bạn
@@ -131,6 +132,7 @@ class EOLogin extends PureComponent {
                       <Row>
                         <Col xs="6">
                           <Button
+                            type="submit"
                             color="light"
                             className="px-4 text-dark"
                             style={{
