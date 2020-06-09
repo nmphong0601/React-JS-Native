@@ -1,27 +1,23 @@
 import React, { PureComponent } from 'react';
 import PropTypes, { element } from 'prop-types';
 
-import PhanMemActions from '../../actions/NhomQuyenActions';
-import PhanMemsStore from '../../stores/PhanMem/PhanMemStore';
-
 import NhomQuyenActions from '../../actions/NhomQuyenActions';
 import NhomQuyenStore from '../../stores/NhomQuyen/NhomQuyenStore';
 
-import { Card, CardBody, CardHeader, Table} from 'reactstrap';
-import MaterialTable from 'material-table';
+import { Card, CardBody, CardHeader } from 'reactstrap';
 import PhanMems from '../PhanMems/PhanMems';
-import ResponsiveTable from '../Base/ResponsiveTable';
+import { ResponsiveTable, PaginationTable } from '../Base';
 //import { Test } from './NhomQuyens.styles';
 
-class NhomQuyens extends PureComponent { 
+class NhomQuyens extends PureComponent {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       appId: 0,
       pagingInfor: {
         filter: "1=1",
-        maxSize: 3,
+        pageCount: 3,
         page: 1,
         pageSize: 10,
         reverse: false,
@@ -39,8 +35,11 @@ class NhomQuyens extends PureComponent {
   }
 
   _onNhomQuyenChange = () => {
-    debugger;
+    let _pagingInfo = this.state.pagingInfor;
+    _pagingInfo.totalItems = NhomQuyenStore.getPagingNhomQuyens()['ToTalRow'];
+
     this.setState({
+      pagingInfor: _pagingInfo,
       columnNhomQuyens: [
         { title: 'Tên nhóm quyền', field: 'Ten' },
         { title: 'Mô tả', field: 'MoTa' }
@@ -56,7 +55,7 @@ class NhomQuyens extends PureComponent {
     _pagingInfo.filter = "1=1";
     if (this.state.appId != null && this.state.appId != 0)
       _pagingInfo.filter = _pagingInfo.filter + ' and AppId=' + this.state.appId;
-      
+
     this.setState({pagingInfor: _pagingInfo});
     NhomQuyenActions.pagedItems(this.state.pagingInfor);
   }
@@ -87,14 +86,28 @@ class NhomQuyens extends PureComponent {
     }
   }
 
-  deleteNhomQuyen(data) {
-    if(data != undefined){
-      NhomQuyenActions.removeItem(data.Id);
-    }
-  }
-
   updateNhomQuyen(data){
     alert(data.Ten);
+  }
+
+  pageChange(pageIndex){
+    let _pagingInfo = this.state.pagingInfor;
+    _pagingInfo.page = pageIndex;
+
+    this.setState({pagingInfor: _pagingInfo});
+    NhomQuyenActions.pagedItems(this.state.pagingInfor);
+  }
+
+  phanMemChange(app){
+    debugger;
+    let _pagingInfo = this.state.pagingInfor;
+    _pagingInfo.filter = "1=1";
+
+    if (app != undefined && app.value != 0)
+      _pagingInfo.filter = _pagingInfo.filter + ' and AppId=' + app.value;
+
+    this.setState({pagingInfor: _pagingInfo});
+    NhomQuyenActions.pagedItems(this.state.pagingInfor);
   }
 
   render () {
@@ -106,52 +119,10 @@ class NhomQuyens extends PureComponent {
         <CardBody>
           <CardHeader>
                 <strong><i className="icon-info pr-1"></i> Quản lý nhóm quyền</strong>
-                <PhanMems type="dropdown"/>
+                <PhanMems type="dropdown" onSelectedChange={this.phanMemChange.bind(this)}/>
           </CardHeader>
-          <ResponsiveTable data={this.state.nhomQuyens} columns={this.state.columnNhomQuyens} onRowDelete={this.deleteNhomQuyen} onRowEdit={this.updateNhomQuyen}></ResponsiveTable>
-          {/* <MaterialTable
-            title="Danh sách nhóm quyền"
-            columns={this.state.columnNhomQuyens}
-            data={this.state.nhomQuyens}
-            editable={{
-              onRowAdd: (newData) =>
-                new Promise((resolve) => {
-                  setTimeout(() => {
-                    resolve();
-                    this.setState((prevState) => {
-                      const data = [...prevState.data];
-                      data.push(newData);
-                      return { ...prevState, data };
-                    });
-                  }, 600);
-                }),
-              onRowUpdate: (newData, oldData) =>
-                new Promise((resolve) => {
-                  setTimeout(() => {
-                    resolve();
-                    if (oldData) {
-                      this.setState((prevState) => {
-                        const data = [...prevState.data];
-                        data[data.indexOf(oldData)] = newData;
-                        return { ...prevState, data };
-                      });
-                    }
-                  }, 600);
-                }),
-              onRowDelete: (oldData) =>
-                new Promise((resolve) => {
-                  setTimeout(() => {
-                    resolve();
-                    this.setState((prevState) => {
-                      const data = [...prevState.data];
-                      data.splice(data.indexOf(oldData), 1);
-                      return { ...prevState, data };
-                    });
-                  }, 600);
-                }),
-            }}
-          /> */}
-          
+          <ResponsiveTable data={this.state.nhomQuyens} columns={this.state.columnNhomQuyens} onDelete={this.deleteNhomQuyen} onEdit={this.updateNhomQuyen}></ResponsiveTable>
+          <PaginationTable page={this.state.pagingInfor.page} totalItems={this.state.pagingInfor.totalItems} pageSize={this.state.pagingInfor.pageSize} onPageChange={this.pageChange.bind(this)}/>
         </CardBody>
       </Card>
     );

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import PhanMemActions from '../../actions/PhanMemActions';
 import PhanMemsStore from '../../stores/PhanMem/PhanMemStore';
 
-import { Card, CardBody, CardHeader, Table } from 'reactstrap';
+import { Card, CardBody, CardHeader } from 'reactstrap';
+import { ResponsiveTable, PaginationTable } from '../Base';
 import Select from 'react-select';
 //import { Test } from './PhanMems.styles';
 
@@ -23,6 +24,11 @@ class PhanMems extends PureComponent {
         sort: "CreatedOn DESC",
         totalItems: 0
       },
+      columnPhanMems: [
+        { title: 'Tên phần mềm', field: 'Ten' },
+        { title: 'Mô tả', field: 'MoTa' }
+      ],
+      selectedApp: null,
       phanMems: [],
       hasError: false,
     };
@@ -31,7 +37,7 @@ class PhanMems extends PureComponent {
   _onPhanMemChange = () => {
     debugger;
     this.setState({
-        phanMems: PhanMemsStore.getPagingPhanMems()['ApiPhanMems']
+        phanMems: PhanMemsStore.getPhanMems()
     });
   }
 
@@ -45,7 +51,7 @@ class PhanMems extends PureComponent {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    console.log('PhanMems will receive props', nextProps);
+
   }
 
   componentWillUpdate = (nextProps, nextState) => {
@@ -60,6 +66,29 @@ class PhanMems extends PureComponent {
     PhanMemsStore.removeChangeListener(this._onPhanMemChange);
   }
 
+  deletePhanMem(data) {
+    if(data != undefined){
+      PhanMemActions.removeItem(data.Id);
+    }
+  }
+
+  updatePhanMem(data){
+    alert(data.Ten);
+  }
+
+  pageChange(pageIndex){
+    let _pagingInfo = this.state.pagingInfor;
+    _pagingInfo.page = pageIndex;
+
+    this.setState({pagingInfor: _pagingInfo});
+    PhanMemActions.pagedItems(this.state.pagingInfor);
+  }
+
+  handleChange = selectedOption => {
+    this.setState({ selectedApp: selectedOption });
+    this.props.onSelectedChange(selectedOption);
+  };
+
   render () {
     if (this.state.hasError) {
       return <h1>Something went wrong.</h1>;
@@ -69,7 +98,7 @@ class PhanMems extends PureComponent {
         return {value: element.AppId, label: element.Ten}
       });
       return (
-        <Select className="col-md-3" options={danhSachPhanMem} placeholder="Chọn phần mềm..."/>
+        <Select className="col-md-3" value={this.state.selectedApp} options={danhSachPhanMem} onChange={this.handleChange} placeholder="Chọn phần mềm..."/>
         // <select>
         //     <option value="0">Chọn phần mềm</option>
         //   {this.state.phanMems.map((element, index) => (
@@ -85,24 +114,8 @@ class PhanMems extends PureComponent {
             <CardHeader>
                   <strong><i className="icon-info pr-1"></i> Quản lý phần mềm</strong>
             </CardHeader>
-            <Table striped>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Tên phần mềm</th>
-                  <th>Mô tả</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.phanMems.map((element, index) => (
-                  <tr>
-                    <th scope="row">{index + 1}</th>
-                    <td>{element.Ten}</td>
-                    <td>{element.MoTa}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+            <ResponsiveTable data={this.state.phanMems} columns={this.state.columnPhanMems} onDelete={this.deletePhanMem} onEdit={this.updatePhanMem}></ResponsiveTable>
+            <PaginationTable page={this.state.pagingInfor.page} totalItems={this.state.pagingInfor.totalItems} pageSize={this.state.pagingInfor.pageSize} onPageChange={this.pageChange.bind(this)}/>
           </CardBody>
         </Card>
       );

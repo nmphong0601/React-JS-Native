@@ -41,6 +41,7 @@ class ResponsiveTable extends PureComponent {
   }
 
   render () {
+    let headerColumns = this.props.columns;
     if (this.state.hasError) {
       return <h1>Something went wrong.</h1>;
     }
@@ -50,9 +51,11 @@ class ResponsiveTable extends PureComponent {
           <tr>
             <th>#</th>
             {
-              this.props.columns.map(col => (
-                <th>{col.title}</th>
-              ))
+              headerColumns.map((colHeader, index) => {
+                return (
+                  <th key={index}>{colHeader.title}</th>
+                )
+              })
             }
             <th>Thao tác</th>
           </tr>
@@ -60,14 +63,14 @@ class ResponsiveTable extends PureComponent {
         <tbody>
           {
             this.props.data.map((element, index) => (
-              <tr>
+              <tr key={index}>
                 <th scope="row" className="pivoted">
                   <div className="tdBefore">#</div>
                   {index + 1}
                 </th>
                 {
-                  this.props.columns.map(col => (
-                    <td className="pivoted">
+                  headerColumns.map((col, index) => (
+                    <td key={index} className="pivoted">
                       <div className="tdBefore">{col.title}</div>
                       {element[col.field]}
                     </td>
@@ -98,5 +101,7 @@ ResponsiveTable.propTypes = {
 ResponsiveTable.defaultProps = {
   // bla: 'test',
 };
+
+//export default ResponsiveTable;
 
 export default ResponsiveTable;
