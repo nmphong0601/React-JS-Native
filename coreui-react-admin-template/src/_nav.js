@@ -1,280 +1,222 @@
 export default { //Setup menu ở đây
   items: [
     {
-      name: 'Dashboard',
-      url: '/dashboard',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
-    },
-    {
-      title: true,
-      name: 'Theme',
-      wrapper: {            // optional wrapper object
-        element: '',        // required valid HTML5 element tag
-        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
-      },
-      class: ''             // optional class names space delimited list for title item ex: "text-center"
-    },
-    {
-      name: 'Colors',
-      url: '/theme/colors',
-      icon: 'icon-drop',
-    },
-    {
-      name: 'Typography',
-      url: '/theme/typography',
-      icon: 'icon-pencil',
-    },
-    {
-      title: true,
-      name: 'Components',
-      wrapper: {
-        element: '',
-        attributes: {},
-      },
-    },
-    {
-      name: 'Base',
-      url: '/base',
-      icon: 'icon-puzzle',
+      name: 'Quản lý công việc',
+      url: '/congviec',
+      icon: 'icon-book-open',
       children: [
         {
-          name: 'Breadcrumbs',
-          url: '/base/breadcrumbs',
-          icon: 'icon-puzzle',
+          name: 'Công việc đã nhận',
+          url: '/congviec/danhan'
         },
         {
-          name: 'Cards',
-          url: '/base/cards',
-          icon: 'icon-puzzle',
+          name: 'Tạo mới công việc',
+          url: '/congviec/taomoi'
         },
         {
-          name: 'Carousels',
-          url: '/base/carousels',
-          icon: 'icon-puzzle',
+          name: 'Thông báo',
+          url: '/congviec/thongbao'
         },
         {
-          name: 'Collapses',
-          url: '/base/collapses',
-          icon: 'icon-puzzle',
+          name: 'Phản hồi',
+          url: '/congviec/phanhoi'
         },
         {
-          name: 'Dropdowns',
-          url: '/base/dropdowns',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Forms',
-          url: '/base/forms',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Jumbotrons',
-          url: '/base/jumbotrons',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'List groups',
-          url: '/base/list-groups',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Navs',
-          url: '/base/navs',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Paginations',
-          url: '/base/paginations',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Popovers',
-          url: '/base/popovers',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Progress Bar',
-          url: '/base/progress-bar',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Switches',
-          url: '/base/switches',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Tables',
-          url: '/base/tables',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Tabs',
-          url: '/base/tabs',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Tooltips',
-          url: '/base/tooltips',
-          icon: 'icon-puzzle',
-        },
-      ],
+          name: 'Tin nhắn',
+          url: '/congviec/tinnhan'
+        }
+      ]
+      // badge: {
+      //   variant: 'info',
+      //   text: 'NEW',
+      // }
     },
     {
-      name: 'Buttons',
-      url: '/buttons',
-      icon: 'icon-cursor',
+      name: 'Quản lý văn bản',
+      url: '/vanban',
+      icon: 'icon-book-open',
       children: [
         {
-          name: 'Buttons',
-          url: '/buttons/buttons',
-          icon: 'icon-cursor',
+          name: 'Văn bản đến',
+          url: '/vanban/den'
         },
         {
-          name: 'Button dropdowns',
-          url: '/buttons/button-dropdowns',
-          icon: 'icon-cursor',
+          name: 'Văn bản đi',
+          url: '/vanban/di'
         },
         {
-          name: 'Button groups',
-          url: '/buttons/button-groups',
-          icon: 'icon-cursor',
+          name: 'Văn bản nội bộ',
+          url: '/vanban/noibo'
         },
         {
-          name: 'Brand Buttons',
-          url: '/buttons/brand-buttons',
-          icon: 'icon-cursor',
-        },
-      ],
+          name: 'Văn bản cá nhân',
+          url: '/vanban/canhan'
+        }
+      ]
     },
     {
-      name: 'Charts',
-      url: '/charts',
-      icon: 'icon-pie-chart',
+      name: 'Quản lý công tác',
+      url: '/congtac',
+      icon: 'icon-book-open',
     },
     {
-      name: 'Icons',
-      url: '/icons',
-      icon: 'icon-star',
+      name: 'Lưu trữ - Tra cứu',
+      url: '/luutrutracuu',
+      icon: 'icon-book-open',
       children: [
         {
-          name: 'CoreUI Icons',
-          url: '/icons/coreui-icons',
-          icon: 'icon-star',
-          badge: {
-            variant: 'info',
-            text: 'NEW',
-          },
+          name: 'Nộp lưu trữ',
+          url: '/nopluutru'
         },
         {
-          name: 'Flags',
-          url: '/icons/flags',
-          icon: 'icon-star',
+          name: 'Hồ sơ vụ việc',
+          url: '/hosovuviec'
         },
         {
-          name: 'Font Awesome',
-          url: '/icons/font-awesome',
-          icon: 'icon-star',
-          badge: {
-            variant: 'secondary',
-            text: '4.7',
-          },
+          name: 'Tài liệu ISO',
+          url: '/tailieuiso'
         },
         {
-          name: 'Simple Line Icons',
-          url: '/icons/simple-line-icons',
-          icon: 'icon-star',
+          name: 'Thông báo chung',
+          url: '/thongbaochung'
         },
-      ],
+        {
+          name: 'Trợ giúp',
+          url: '/trogiup'
+        },
+        {
+          name: 'Liên kết',
+          url: '/lienket'
+        }
+      ]
     },
     {
-      name: 'Notifications',
-      url: '/notifications',
-      icon: 'icon-bell',
+      name: 'Thống kê- theo dõi',
+      url: '/thongke',
+      icon: 'icon-book-open',
       children: [
         {
-          name: 'Alerts',
-          url: '/notifications/alerts',
-          icon: 'icon-bell',
+          name: 'Thống kê xử lý',
+          url: '/thongke/xuly'
         },
         {
-          name: 'Badges',
-          url: '/notifications/badges',
-          icon: 'icon-bell',
+          name: 'Thống kê văn bản',
+          url: '/thongke/vanban'
         },
         {
-          name: 'Modals',
-          url: '/notifications/modals',
-          icon: 'icon-bell',
+          name: 'Thống kê công việc',
+          url: '/thongke/congviec'
         },
-      ],
+        {
+          name: 'Xem bảng log',
+          url: '/thongke/log'
+        }
+      ]
     },
     {
-      name: 'Widgets',
-      url: '/widgets',
-      icon: 'icon-calculator',
-      badge: {
-        variant: 'info',
-        text: 'NEW',
-      },
-    },
-    {
-      divider: true,
-    },
-    {
-      title: true,
-      name: 'Extras',
-    },
-    {
-      name: 'Pages',
-      url: '/pages',
-      icon: 'icon-star',
+      name: 'Quản lý danh mục',
+      url: '/danhmuc',
+      icon: 'icon-book-open',
       children: [
         {
-          name: 'Login',
-          url: '/login',
-          icon: 'icon-star',
+          name: 'Các tổ chức',
+          url: '/danhmuc/tochuc'
         },
         {
-          name: 'Register',
-          url: '/register',
-          icon: 'icon-star',
+          name: 'Các cá nhân',
+          url: '/danhmuc/canhan'
         },
         {
-          name: 'Error 404',
-          url: '/404',
-          icon: 'icon-star',
+          name: 'Luồng xử lý',
+          url: '/danhmuc/luongxuly'
         },
         {
-          name: 'Error 500',
-          url: '/500',
-          icon: 'icon-star',
+          name: 'Loại văn bản đến',
+          url: '/danhmuc/loaivanban/den'
         },
-      ],
+        {
+          name: 'Loại văn bản đi',
+          url: '/danhmuc/loaivanban/di'
+        },
+        {
+          name: 'Vị trí lưu trữ',
+          url: '/danhmuc/luutru'
+        },
+        {
+          name: 'Số văn bản',
+          url: '/danhmuc/sovanban'
+        },
+        {
+          name: 'Lĩnh vực',
+          url: '/danhmuc/linhvuc'
+        },
+        {
+          name: 'Ký hiệu thông tin lưu trữ',
+          url: '/danhmuc/kyhieuluutru'
+        },
+        {
+          name: 'Loại tài liệu ISO',
+          url: '/danhmuc/loaitailieuiso'
+        },
+        {
+          name: 'Địa điểm',
+          url: '/danhmuc/diadiem'
+        },
+        {
+          name: 'Tổ chức',
+          url: '/danhmuc/tochuc'
+        },
+        {
+          name: 'Nhóm các tổ chức',
+          url: '/danhmuc/nhomtochuc'
+        }
+      ]
     },
     {
-      name: 'Disabled',
-      url: '/dashboard',
-      icon: 'icon-ban',
-      attributes: { disabled: true },
+      name: 'Quản lý người dùng',
+      url: '/nguoidung',
+      icon: 'icon-book-open',
+      children: [
+        {
+          name: 'Đơn vị',
+          url: '/nguoidung/donvi'
+        },
+        {
+          name: 'Cán bộ',
+          url: '/nguoidung/canbo'
+        },
+        {
+          name: 'Nhóm làm việc',
+          url: '/nguoidung/nhomlamviec'
+        },
+        {
+          name: 'Chức vụ',
+          url: '/nguoidung/chucvu'
+        }
+      ]
     },
     {
-      name: 'Download CoreUI',
-      url: 'https://coreui.io/react/',
-      icon: 'icon-cloud-download',
-      class: 'mt-auto',
-      variant: 'success',
-      attributes: { target: '_blank', rel: "noopener" },
-    },
-    {
-      name: 'Try CoreUI PRO',
-      url: 'https://coreui.io/pro/react/',
-      icon: 'icon-layers',
-      variant: 'danger',
-      attributes: { target: '_blank', rel: "noopener" },
-    },
-  ],
+      name: 'Quản lý nhóm quyền',
+      url: '/nhomquyen',
+      icon: 'icon-book-open',
+      children: [
+        {
+          name: 'Danh sách quyền',
+          url: '/nhomquyen/danhsach'
+        },
+        {
+          name: 'Cấu hình phân quyền',
+          url: '/nhomquyen/cauhinhphanquyen'
+        },
+        {
+          name: 'Function Category',
+          url: '/nhomquyen/functioncategory'
+        },
+        {
+          name: 'Function',
+          url: '/nhomquyen/function'
+        }
+      ]
+    }
+  ]
 };

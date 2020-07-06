@@ -36,7 +36,6 @@ const Typography = React.lazy(() => import('./views/Theme/Typography'));
 const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
-const NguoiDungs = React.lazy(() => import('./views/NguoiDungs/NguoiDungs'));
 
 const PhanMems = React.lazy(() => import('./views/PhanMems/PhanMems'));
 const NhomQuyens = React.lazy(() => import('./views/NhomQuyens/NhomQuyens'));
@@ -85,7 +84,6 @@ const routes = [
   { path: '/help/charts', name: 'Charts', component: Charts },
   { path: '/help/users', exact: true,  name: 'Users', component: Users },
   { path: '/help/users/:id', exact: true, name: 'User Details', component: User },
-  { path: '/help/nguoidungs', exact: true,  name: 'Người Dùng', component: NguoiDungs },
 
   { path: '/app', exact: true, name: 'App' },
   { path: '/app/quanlyphanmem', exact: true,  name: 'Quản lý phần mềm', component: PhanMems },

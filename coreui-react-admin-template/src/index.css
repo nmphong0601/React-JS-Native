@@ -11,11 +11,7 @@
   .responsiveTable td.pivoted a {
         padding-right: 1em;
   }
-
-  .responsiveTable td.pivoted a i {
-    
-  }
-
+  
   .responsiveTable td.pivoted a i.fa.text-muted:hover {
         color: #59c9e7 !important;
   }

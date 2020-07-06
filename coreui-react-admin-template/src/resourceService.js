@@ -1,7 +1,7 @@
 import Configuration from './configService';
 import axios from "axios";
 
-class ResourceService { // Cài đặt method chung cho tất cả các API getAll/getSingle/Insert/Update/Delete
+class ResourceService { // Cài đặt Repository chung cho tất cả các API getAll/getSingle/Insert/Update/Delete
     constructor(props) {
         this.config = Configuration;
         this.endpoint = props.endPoint;
